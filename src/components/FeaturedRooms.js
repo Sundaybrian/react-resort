@@ -1,14 +1,18 @@
-import React, { Component } from "react";
+import React, { useContext } from "react";
 import { RoomContext } from "../context/roomContext";
+import Loading from "./Loading";
 
-export class FeaturedRooms extends Component {
-  static contextType = RoomContext;
-  render() {
-    let { featuredRooms } = this.context;
-    console.log(featuredRooms);
+const FeaturedRooms = () => {
+  const roomContext = useContext(RoomContext);
 
-    return <div>hello from FeaturedRooms </div>;
-  }
-}
+  let { featuredRooms } = roomContext;
+  console.log(featuredRooms);
+
+  return (
+    <div>
+      <Loading />
+    </div>
+  );
+};
 
 export default FeaturedRooms;
