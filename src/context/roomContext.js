@@ -11,8 +11,6 @@ class RoomProvider extends Component {
     loading: true,
   };
 
-  //get data
-
   componentDidMount() {
     // items is the array from data it can be aliased since it is a default export
     let rooms = this.formatData(items);
@@ -42,9 +40,22 @@ class RoomProvider extends Component {
     return tempItems;
   }
 
+  getRoom = (slug) => {
+    // fetching a single room
+    // copying the rooms array
+    let tempRooms = [...this.state.rooms];
+    const room = tempRooms.find((room) => room.slug === slug);
+    return room;
+  };
+
   render() {
     return (
-      <RoomContext.Provider value={{ ...this.state }}>
+      <RoomContext.Provider
+        value={{
+          ...this.state,
+          getRoom: this.getRoom,
+        }}
+      >
         {this.props.children}
       </RoomContext.Provider>
     );
