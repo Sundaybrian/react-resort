@@ -5,7 +5,7 @@ export class FeaturedRooms extends Component {
   static contextType = RoomContext;
   render() {
     let value = this.context;
-    return <div></div>;
+    return <div>hello from FeaturedRooms </div>;
   }
 }
 
