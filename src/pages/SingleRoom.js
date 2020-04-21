@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { RoomContext } from "../context/roomContext";
 import defaultBcg from "../images/room-1.jpeg";
 import { Link } from "react-router-dom";
-import Hero from "../components/Hero";
 import Banner from "../components/Banner";
 import StyledHero from "../components/StyledHero";
 
@@ -74,6 +73,15 @@ export default class SingleRoom extends Component {
               <h6>{breakfast && "breakfast included"}</h6>
             </article>
           </div>
+        </section>
+
+        <section className="room-extras">
+          <h6>extras</h6>
+          <ul className="extras">
+            {extras.map((item, index) => {
+              return <li key={index}>-{item}</li>;
+            })}
+          </ul>
         </section>
       </>
     );
