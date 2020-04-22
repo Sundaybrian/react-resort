@@ -79,7 +79,28 @@ class RoomProvider extends Component {
   };
 
   filterRooms = () => {
-    console.log("hello filter");
+    let {
+      rooms,
+      type,
+      capacity,
+      price,
+      maxPrice,
+      minSize,
+      breakfast,
+      pets,
+    } = this.state;
+
+    // clone the rooms array
+    let tempRooms = [...rooms];
+
+    if (type !== "all") {
+      // if value is not all return all rooms with the new type
+      // update the sorted rooms not rooms
+      tempRooms = tempRooms.filter((room) => room.type === type);
+      this.setState({
+        sortedRooms: tempRooms,
+      });
+    }
   };
 
   getUnique = (arr, val) => {
