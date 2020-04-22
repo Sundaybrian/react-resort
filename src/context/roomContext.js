@@ -93,14 +93,23 @@ class RoomProvider extends Component {
     // clone the rooms array
     let tempRooms = [...rooms];
 
+    // transform values since some values will be strings
+    capacity = parseInt(capacity);
+
     if (type !== "all") {
       // if value is not all return all rooms with the new type
       // update the sorted rooms not rooms
       tempRooms = tempRooms.filter((room) => room.type === type);
-      this.setState({
-        sortedRooms: tempRooms,
-      });
     }
+
+    // filter by capacity
+    if (capacity !== 1) {
+      tempRooms = tempRooms.filter((room) => room.capacity >= capacity);
+    }
+
+    this.setState({
+      sortedRooms: tempRooms,
+    });
   };
 
   getUnique = (arr, val) => {
