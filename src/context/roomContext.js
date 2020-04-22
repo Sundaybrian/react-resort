@@ -110,6 +110,15 @@ class RoomProvider extends Component {
       tempRooms = tempRooms.filter((room) => room.capacity >= capacity);
     }
 
+    // breakfast and pets
+    if (breakfast) {
+      tempRooms = tempRooms.filter((room) => room.breakfast == breakfast);
+    }
+
+    if (pets) {
+      tempRooms = tempRooms.filter((room) => room.pets == pets);
+    }
+
     // filter by price
     tempRooms = tempRooms.filter((room) => room.price <= price);
 
