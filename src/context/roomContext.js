@@ -9,16 +9,29 @@ class RoomProvider extends Component {
     sortedRooms: [],
     featuredRooms: [],
     loading: true,
+    type: "all",
+    capacity: 1,
+    price: 0,
+    maxPrice: 0,
+    minPrice: 0,
+    minSize: 0,
+    maxSize: 0,
+    breakfast: false,
+    pets: false,
   };
 
   componentDidMount() {
     // items is the array from data it can be aliased since it is a default export
     let rooms = this.formatData(items);
     let featuredRooms = rooms.filter((room) => room.featured === true);
+    let maxPrice = Math.max(...rooms.map((room) => room.price));
+    let maxSize = Math.max(...rooms.map((room) => room.size));
 
     this.setState({
       rooms,
       featuredRooms,
+      maxPrice,
+      maxSize,
       sortedRooms: rooms,
       loading: false,
     });
@@ -48,12 +61,26 @@ class RoomProvider extends Component {
     return room;
   };
 
+  handleChange = (e) => {
+    // used for form inputs changes in vlaues
+    const type = e.target.type;
+    const name = e.target.name;
+    const value = e.target.value;
+
+    console.log(type, name, value);
+  };
+
+  filterRooms = () => {
+    console.log("hello filter");
+  };
+
   render() {
     return (
       <RoomContext.Provider
         value={{
           ...this.state,
           getRoom: this.getRoom,
+          handleChange: this.handleChange,
         }}
       >
         {this.props.children}
