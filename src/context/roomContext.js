@@ -31,7 +31,7 @@ class RoomProvider extends Component {
       rooms,
       featuredRooms,
       maxPrice,
-      price:maxPrice,
+      price: maxPrice,
       maxSize,
       sortedRooms: rooms,
       loading: false,
@@ -87,6 +87,7 @@ class RoomProvider extends Component {
       price,
       maxPrice,
       minSize,
+      maxSize,
       breakfast,
       pets,
     } = this.state;
@@ -110,7 +111,12 @@ class RoomProvider extends Component {
     }
 
     // filter by price
-    tempRooms = tempRooms.filter(room => room.price <= price);
+    tempRooms = tempRooms.filter((room) => room.price <= price);
+
+    // filter by size
+    tempRooms = tempRooms.filter(
+      (room) => room.size >= minSize && room.size <= maxSize
+    );
 
     this.setState({
       sortedRooms: tempRooms,
