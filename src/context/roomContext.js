@@ -74,6 +74,14 @@ class RoomProvider extends Component {
     console.log("hello filter");
   };
 
+  getUnique = (arr, val) => {
+    // arr is an array of items
+    // val is the type of value that item has e.g item['type'] can be single,double etc
+    // the we create an array of all the types and return a set(no duplicates)
+    let items = [...new Set(arr.map((item) => item[val]))];
+    return items;
+  };
+
   render() {
     return (
       <RoomContext.Provider
@@ -81,6 +89,7 @@ class RoomProvider extends Component {
           ...this.state,
           getRoom: this.getRoom,
           handleChange: this.handleChange,
+          getUnique: this.getUnique,
         }}
       >
         {this.props.children}
