@@ -63,11 +63,19 @@ class RoomProvider extends Component {
 
   handleChange = (e) => {
     // used for form inputs changes in vlaues
-    const type = e.target.type;
-    const name = e.target.name;
-    const value = e.target.value;
+    const target = e.target;
+    // check the type of the event..if it is a checkbox,then set value to the value of the target.checked else target.value
+    const value = target.type === "checkbox" ? target.checked : target.value;
+    const name = target.name;
 
-    console.log(type, name, value);
+    this.setState(
+      {
+        // dynamically change whatever name proprty is in state and update the value
+        [name]: value,
+      },
+      // then run the filterRooms depending with state change
+      this.filterRooms
+    );
   };
 
   filterRooms = () => {
