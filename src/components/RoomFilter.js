@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import Title from "./Title";
 import { RoomContext } from "../context/roomContext";
 
-const RoomFilter = () => {
+const RoomFilter = ({ rooms }) => {
   const context = useContext(RoomContext);
   const {
     handleChange,
@@ -15,7 +15,21 @@ const RoomFilter = () => {
     maxSize,
     breakfast,
     pets,
+    getUnique,
   } = context;
+
+  // returns all unique rooms types
+  let types = getUnique(rooms, "type");
+
+  types = ["all", ...types];
+  // creating an array of option
+  types = types.map((item, index) => {
+    return (
+      <option value={item} key={index}>
+        {item}
+      </option>
+    );
+  });
 
   return (
     <section className="filter-container">
@@ -31,7 +45,7 @@ const RoomFilter = () => {
             className="form-control"
             onChange={handleChange}
           >
-            {}
+            {types}
           </select>
         </div>
         {/*  end select type*/}
