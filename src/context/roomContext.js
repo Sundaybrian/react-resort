@@ -1,5 +1,6 @@
 import React, { createContext, Component } from "react";
 import items from "../data";
+import Client from "../Contentful";
 
 const RoomContext = createContext();
 
@@ -20,22 +21,37 @@ class RoomProvider extends Component {
     pets: false,
   };
 
-  componentDidMount() {
-    // items is the array from data it can be aliased since it is a default export
-    let rooms = this.formatData(items);
-    let featuredRooms = rooms.filter((room) => room.featured === true);
-    let maxPrice = Math.max(...rooms.map((room) => room.price));
-    let maxSize = Math.max(...rooms.map((room) => room.size));
+  getData = async () => {
+    try {
+      let response = await Client.getEntries({
+        content_type: "reactBeachResort",
+        order: "fields.price",
+      });
 
-    this.setState({
-      rooms,
-      featuredRooms,
-      maxPrice,
-      price: maxPrice,
-      maxSize,
-      sortedRooms: rooms,
-      loading: false,
-    });
+      console.log(response);
+
+      let rooms = this.formatData(response.items);
+      let featuredRooms = rooms.filter((room) => room.featured === true);
+      let maxPrice = Math.max(...rooms.map((room) => room.price));
+      let maxSize = Math.max(...rooms.map((room) => room.size));
+
+      this.setState({
+        rooms,
+        featuredRooms,
+        maxPrice,
+        price: maxPrice,
+        maxSize,
+        sortedRooms: rooms,
+        loading: false,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  componentDidMount() {
+    // make api call when app starts
+    this.getData();
   }
 
   formatData(arr) {
